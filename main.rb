@@ -2,11 +2,12 @@
 
 require 'nokogiri'
 require 'open-uri'
+require 'net/http'
 
 class EmojiPedia
   def self.create_data_struct(unicode, image)
-      emoji_struct = Struct.new(:unicode_values, :image_list)
-      return emoji_struct.new(unicode, image)
+    emoji_struct = Struct.new(:unicode_values, :image_list)
+    return emoji_struct.new(unicode, image)
   end
 
   def self.get_webpage(url)
@@ -87,21 +88,33 @@ messenger = '/messenger/1.0/'
 twitter= '/twitter/twemoji-2.2.3/'
 firefox_os = '/mozilla/firefox-os-2.5/'
 emoji_one = '/emoji-one/2.2.5/'
-emoji_dex = '/emojidex/1.0.24'
+emoji_dex = '/emojidex/1.0.24/'
 style = [apple_url, google_url, windows_url, samsung,
          lg, htc, facebook, messenger, twitter, firefox_os,
-         emoji_one, emoji_dex, '/emojipedia/']
+         emoji_one, emoji_dex, '/emojipedia/5.0/']
 
 emojipedia.parse_emoji_list(ARGV[0]).each do |url|
+
   emoji_data = emojipedia.extract_info_from_url(url, style)
+
+  file_name = ''
   emoji_data.unicode_values.each do |unicode|
-    puts unicode
+    file_name = file_name + '_' + unicode
   end
+  file_name = file_name[1..-1].gsub('U+', '') + '.png'
   emoji_data.image_list.each do |array|
-    print('style:')
-    print(array[0])
-    print(' url: ')
-    puts(array[1])
+    unless array[1].include?('empty')
+      print 'Downloading '
+      print file_name
+      print ' as '
+      print array[0]
+      puts ' emoji style ...'
+      download_link = array[1]
+      output_file = 'output' + '/' + array[0] + '/'
+      mv_line = 'mv ' + output_file + download_link.split('/')[-1] + ' ' + output_file + file_name.downcase
+      wget_line = 'wget --quiet -N  ' + download_link + ' -P ' + output_file
+      system(wget_line)
+      system(mv_line)
+    end
   end
-  STDIN.gets()
 end
