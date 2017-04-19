@@ -141,7 +141,7 @@ emojipedia.parse_emoji_list(ARGV[0]).each do |url|
         print array[0]
         puts ' emoji style ...'
         download_link = array[1]
-        output_file = 'output' + '/' + array[0] + '/'
+        output_file = 'emojipedia.org' + '/' + array[0] + '/'
         mv_line = 'mv ' + output_file + download_link.split('/')[-1] + ' ' + output_file + file_name.downcase
         wget_line = 'wget --quiet -N  ' + download_link + ' -P ' + output_file
         system(wget_line)
