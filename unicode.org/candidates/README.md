@@ -1,4 +1,4 @@
-#NOTE
+# NOTE
 
 Those emoji are currently supported nowhere.
 There are here for testing (manually parsed from webpage from the moment with conversion)
