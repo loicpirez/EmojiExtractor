@@ -151,3 +151,4 @@ emojipedia.parse_emoji_list(ARGV[0]).each do |url|
   end
   i += 1
 end
+
