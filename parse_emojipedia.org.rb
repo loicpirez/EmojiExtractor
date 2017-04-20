@@ -130,7 +130,7 @@ emojipedia.parse_emoji_list(ARGV[0]).each do |url|
   puts url
   emoji_data = emojipedia.extract_info_from_url(url, style)
 
-  file_name = 'empty'
+  file_name = ''
   emoji_data.unicode_values.each do |unicode|
     file_name = file_name + '_' + unicode
   end
