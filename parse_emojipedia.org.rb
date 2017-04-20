@@ -22,10 +22,15 @@ class EmojiPedia
 
   def self.parse_emoji_list(url)
     data = get_webpage(url)
-    grid = data.css('.emoji-grid')
+    grid = data.css('article')
     emoji_url_list = Array.new
     grid.css('a').each do |row|
-      emoji_url_list.push('http://emojipedia.org' + row['href'])
+      unless row['href'] =~ /unicode-/
+        unless row['href'] =~ /emoji-/
+          puts 'http://emojipedia.org' + row['href']
+          emoji_url_list.push('http://emojipedia.org' + row['href'])
+        end
+      end
     end
     return emoji_url_list
   end
@@ -125,7 +130,7 @@ emojipedia.parse_emoji_list(ARGV[0]).each do |url|
   puts url
   emoji_data = emojipedia.extract_info_from_url(url, style)
 
-  file_name = ''
+  file_name = 'empty'
   emoji_data.unicode_values.each do |unicode|
     file_name = file_name + '_' + unicode
   end
