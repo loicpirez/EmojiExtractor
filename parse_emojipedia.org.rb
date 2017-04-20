@@ -128,31 +128,35 @@ i = 0
 emojipedia.parse_emoji_list(ARGV[0]).each do |url|
   puts i
   puts url
-  emoji_data = emojipedia.extract_info_from_url(url, style)
+  unless url =~ /\/*modifiers/ or url =~ /\/*new\/*/
+    emoji_data = emojipedia.extract_info_from_url(url, style)
 
-  file_name = ''
-  emoji_data.unicode_values.each do |unicode|
-    file_name = file_name + '_' + unicode
-  end
-  file_name = file_name[1..-1].gsub('U+', '') + '.png'
-  emoji_data.image_list.each do |array|
-    if array[1].nil?
-      puts 'Warning : empty'
-    else
-      unless array[1].include?('empty')
-        print 'Downloading '
-        print file_name
-        print ' as '
-        print array[0]
-        puts ' emoji style ...'
-        download_link = array[1]
-        output_file = 'emojipedia.org' + '/' + array[0] + '/'
-        mv_line = 'mv ' + output_file + download_link.split('/')[-1] + ' ' + output_file + file_name.downcase
-        wget_line = 'wget --quiet -N  ' + download_link + ' -P ' + output_file
-        system(wget_line)
-        system(mv_line)
+    file_name = ''
+    emoji_data.unicode_values.each do |unicode|
+      file_name = file_name + '_' + unicode
+    end
+    file_name = file_name[1..-1].gsub('U+', '') + '.png'
+    emoji_data.image_list.each do |array|
+      if array[1].nil?
+        puts 'Warning : empty'
+      else
+        unless array[1].include?('empty')
+          print 'Downloading '
+          print file_name
+          print ' as '
+          print array[0]
+          puts ' emoji style ...'
+          download_link = array[1]
+          output_file = 'emojipedia.org' + '/' + array[0] + '/'
+          mv_line = 'mv ' + output_file + download_link.split('/')[-1] + ' ' + output_file + file_name.downcase
+          wget_line = 'wget --quiet -N  ' + download_link + ' -P ' + output_file
+          system(wget_line)
+          system(mv_line)
+        end
       end
     end
+  else
+    puts url + "is not valid"
   end
   i += 1
 end
