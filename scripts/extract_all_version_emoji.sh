@@ -5,4 +5,4 @@ ruby parse_emojipedia.org.rb "http://emojipedia.org/emoji-4.0/" | tee logs/4.0.l
 ruby parse_emojipedia.org.rb "http://emojipedia.org/emoji-3.0/" | tee logs/3.0.log
 ruby parse_emojipedia.org.rb "http://emojipedia.org/emoji-2.0/" | tee logs/2.0.log
 ruby parse_emojipedia.org.rb "http://emojipedia.org/emoji-1.0/" | tee logs/1.0.log
-python3 parse_unicode.org.py -v -f | tee logs/parse_unicode.log
+python3 parse_unicode.org.py -v -f| tee logs/parse_unicode.log
