@@ -41,11 +41,11 @@ $ python3 ./parse_unicode.org.py
 
 Options:
 
-    -v / --verbose] : Debug execution of the script
-    -m / --messenger-format] : Export to messenger app format
-    -f / --font-format] : Export to iOS/Android font format
-    -d / --disable-crop] : Disable Crop operation on emoji
-    -r / --remove-old-emoji]: Clean current directory before execution
+    -v / --verbose : Debug execution of the script
+    -m / --messenger-format : Export to messenger app format
+    -f / --font-format : Export to iOS/Android font format
+    -d / --disable-crop : Disable Crop operation on emoji
+    -r / --remove-old-emoji: Clean current directory before execution
 
 # Emojipedia (./parse_emojipedia.org.rb)
 
