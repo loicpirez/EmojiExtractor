@@ -135,7 +135,7 @@ emojipedia.parse_emoji_list(ARGV[0]).each do |url|
     emoji_data.unicode_values.each do |unicode|
       file_name = file_name + '_' + unicode
     end
-    file_name = file_name[1..-1].gsub('U+', '') + '.png'
+    file_name = file_name[1..-1].to_s.gsub('U+', '') + '.png'
     emoji_data.image_list.each do |array|
       if array[1].nil?
         puts 'Warning : empty'
